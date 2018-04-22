@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+{% load static from staticfiles %}
+{% block title %}pageObj{% endblock %}
+{% block test %}list{% endblock %}
+{% block nav_pageObj %}current_page_item{% endblock %}
+
+
+
+{% block sub %}
+    <div id="subnav">
+        <ul class="tabbed">
+            <li class="current_page_item"><a href="#">学习笔记</a></li>
+            <li><a href="#">学习资料</a></li>
+        </ul>
+        <div class="clearer">&nbsp;</div>
+    </div>
+{% endblock %}
+
+{% block left %}
+    <div class="left" id="content_wrapper">
+        <div id="content">
+            {% for blog in pageObj %}
+                <div>
+                    <a href="{% url 'blog:blog_post' blog.pk %}"><span class="blogtitle">{{ blog.title }}</span></a>
+                    <span class="time">{{ blog.created_time|date:"Y-m-d" }}</span>
+                    <br>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!--分页开始-->
+        {#分页#}
+        <div class="paginator">
+            <ul class="pagination">
+                <!-- 上一页 -->
+                <li>
+                    {% if pageObj.has_previous %}
+                        <a href="?page={{ pageObj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% else %}
+                        <span aria-hidden="true">&laquo;</span>
+                    {% endif %}
+                </li>
+                <!-- 页码遍历和当前页码 1、全部遍历 2、只遍历前后两个 -->
+                {#          1、 {% for page_num in pageObj.paginator.page_range %} #}
+                <!-- 2、 -->
+                {% for page_num in page_range %}
+                    <!-- 判断是否当前页面，实现当前页的页码高亮 -->
+                    {% if page_num == pageObj.number %}
+                        <li class="active"><span>{{ page_num }}</span></li>
+                    {% else %}
+                        <!-- 判断是否是省略号 -->
+                        {% if page_num == '...' %}
+                            <li><span>{{ page_num }}</span></li>
+                        {% else %}
+                            <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                        {% endif %}
+
+                    {% endif %}
+                {% endfor %}
+
+                <!-- 下一页 -->
+                <li>
+                    {% if pageObj.has_next %}
+                        <a href="?page={{ pageObj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% else %}
+                        <span aria-hidden="true">&raquo;</span>
+                    {% endif %}
+                </li>
+            </ul>
+            {#  1、num_pages和2、count的用处， 1、单页对象-》分页器-》分的总页数  2、单页对象-》分页器-》被分页的对象的数量（对象数量） #}
+            <p>
+                当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</p>
+        </div>
+        {#分页结束#}
+
+        <!--分页结束-->
+    </div>
+{% endblock %}
+
+
+
+
+
+
