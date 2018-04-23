@@ -1,19 +1,20 @@
 {% extends 'index.html' %}
 {% load static from staticfiles %}
-{% block title %}所有博客{% endblock %}
-
-{% block nav_pageObj %}current_page_item{% endblock %}
-
-
+{% block title %}{{ typename }}{% endblock %}
+{% block nav_django %}current_page_item{% endblock %}
 
 {% block sub %}
     <div id="subnav">
         <ul class="tabbed">
-            <li class="current_page_item"><a href="#">当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</a></li>
+            {% for category in all_categorys %}
+                <li class="current_page_item"><a
+                        href="{% url 'blog:category_blogs' category.pk %}">{{ category.type_name }}</a></li>
+            {% endfor %}
         </ul>
         <div class="clearer">&nbsp;</div>
     </div>
 {% endblock %}
+
 
 {% block left %}
     <div class="left" id="content_wrapper">
@@ -24,6 +25,8 @@
                     <span class="time">{{ blog.created_time|date:"Y-m-d" }}</span>
                     <br>
                 </div>
+                {% empty %}
+                无
             {% endfor %}
         </div>
 
@@ -75,13 +78,11 @@
 {#            <p>#}
 {#                当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</p>#}
         </div>
+    <p>当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</p>
         {#分页结束#}
-
         <!--分页结束-->
     </div>
 {% endblock %}
-
-
 
 
 

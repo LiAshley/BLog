@@ -7,9 +7,8 @@
 
 {% block style %}
     <style type="text/css">
-        span.blogtitle {
+        span.title{
             font-size: 20px;
-            #font-family: '宋体'
         }
 
         span.a {
@@ -37,7 +36,7 @@
     <div class="left" id="content_wrapper">
         <div id="content">
             <div class="post">
-                <div class="post_title"><h3>{{ obj.title }}</h3></div>
+                <div class="post_title"><span class="title">{{ obj.title }}</span>&nbsp;(分类:)</div>
                     <span class="a">
                         {% if blog_next %}
                             上一篇：<a href="{% url 'blog:blog_post' blog_next.pk %}">{{ blog_next.title }}</a>

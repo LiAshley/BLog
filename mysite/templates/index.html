@@ -6,7 +6,7 @@
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     <meta name="author" content=""/>
-
+    <link rel="icon" type="image/x-icon" href="{% static 'img/ico.ico' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" media="screen"/>
     <script type="text/javascript" src="{% static 'jquery-1.12.4.min.js' %}"></script>
 
@@ -15,25 +15,21 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-{% block style %}
-    <style type="text/css">
-        span.blogtitle {
-            font-size: 20px;
-            #font-family: '宋体'
-        }
+    {% block style %}
+        <style type="text/css">
+            span.blogtitle {
+                font-size: 20px;
+                #font-family: '宋体'
+            }
+            span.time {
+                /*
+            {#span 和label类似是文字标签不是浮层，默认宽度就文字那么宽所以你设置文字居右没有效果，让span漂浮可以达到你的效果吧，float:right#}        */
+                float: right;
+            }
+        </style>
+    {% endblock %}
 
-        span.time {
-            /*
-
-
-        {#span 和label类似是文字标签不是浮层，默认宽度就文字那么宽所以你设置文字居右没有效果，让span漂浮可以达到你的效果吧，float:right#}     */
-            float: right;
-        }
-    </style>
-
-{% endblock %}
-
-    <title>{% block title %}个人博客{% endblock %}{% block test %}asdfasdfsf{% endblock %}</title>
+    <title>{% block title %}个人博客{% endblock %}</title>
 </head>
 
 <body id="top">
@@ -63,15 +59,15 @@
                     </div>
                     <!-- 子页面 -->
                     {% block sub %}
-<div id="subnav">
-        <ul class="tabbed">
-            <li class="current_page_item"><a href="#">首页自子页面</a></li>
-            <li><a href="#">首页自子页面</a></li>
-            <li><a href="#">首页自子页面</a></li>
-            <li><a href="#">首页自子页面</a></li>
-        </ul>
-        <div class="clearer">&nbsp;</div>
-    </div>
+                        <div id="subnav">
+                            <ul class="tabbed">
+                                <li class="current_page_item"><a href="#">首页自子页面</a></li>
+                                <li><a href="#">首页自子页面</a></li>
+                                <li><a href="#">首页自子页面</a></li>
+                                <li><a href="#">首页自子页面</a></li>
+                            </ul>
+                            <div class="clearer">&nbsp;</div>
+                        </div>
                     {% endblock %}
                     <!-- 子页面 -->
                 </div>
@@ -82,25 +78,27 @@
                             <div class="left" id="content_wrapper">
                                 <div id="content">
                                     <div class="post">
-                                        <div class="post_title"><h3>最新文章</a></h3></div>
-{% for blog in recent_blogs %}
-                <div>
-                    <a href="{% url 'blog:blog_post' blog.pk %}"><span class="blogtitle">{{ blog.title }}</span></a>
-                    <span class="time">{{ blog.created_time|date:"Y-m-d" }}</span>
-                    <br>
-                </div>
-            {% endfor %}
+                                        <div class="post_title"><h3>最新文章</h3></div>
+
+                                        {% for blog in recent_blogs %}
+                                            <div>
+                                                <a href="{% url 'blog:blog_post' blog.pk %}"><span
+                                                        class="blogtitle">{{ blog.title }}</span></a>
+                                                <span class="time">{{ blog.created_time|date:"Y-m-d" }}</span>
+                                                <br>
+                                            </div>
+                                        {% endfor %}
                                         <div class="post_body">
                                         </div>
                                         <div class="post_meta">
-                                            <a href="#">占位</a> | Tagged: <a href="#">Sapien</a>, <a href="#">Sollicitudin</a>,
-                                            <a href="#">Ligula</a>
+                                            <a href="#">占位</a> | Tagged: <a href="#">Sapien</a>, <a href="#">Sollicitudin</a>
+                                            <a href="#">占位</a>
                                         </div>
 
                                     </div>
 
                                     <div class="post">
-                                        <div class="post_title"><h2><a href="#">Porttitor posuere</a></h2></div>
+                                        <div class="post_title"><h3><a href="#">最热文章</a></h3></div>
                                         <div class="post_date">Posted on Dec 11th at 16:12 from <a href="#">Aliquet
                                             Quis</a>
                                         </div>
@@ -117,49 +115,46 @@
                         <!--正文-->
                         <!--右边栏-->
 
-                            <div class="right" id="sidebar_wrapper">
-                                <div id="sidebar">
+                        <div class="right" id="sidebar_wrapper">
+                            <div id="sidebar">
 
-                                    <div class="box">
-                                        <div class="box_title">个人博客</div>
-                                        <div class="box_content">
-                                            <p>微信:AutccnNight</p>
-                                            <p>邮箱:838626049@qq.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="box">
-                                        <div class="box_title">所有分类</div>
-                                        <div class="box_content">
-                                            {% for category in all_categorys %}
-                                            <ul>
-                                                <li><a href="#">{{ category.type_name }}</a></li>
-                                            </ul>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    <div class="box">
-                                        <div class="box_title">归档</div>
-                                        <div class="box_content">
-                                            {% for category in all_categorys %}
-                                            <ul>
-                                                <li><a href="#">{{ category.type_name }}</a></li>
-                                            </ul>
-                                            {% endfor %}
-                                        </div>
-
-                                    </div>
-                                    <div class="box">
-                                        <div class="box_title">资料</div>
-                                        <div class="box_content">
-                                            {% for category in all_categorys %}
-                                            <ul>
-                                                <li><a href="#">{{ category.type_name }}</a></li>
-                                            </ul>
-                                            {% endfor %}
-                                        </div>
+                                <div class="box">
+                                    <div class="box_title">个人博客</div>
+                                    <div class="box_content">
+                                        <p>微信:AutccnNight</p>
+                                        <p>邮箱:838626049@qq.com</p>
                                     </div>
                                 </div>
+                                <div class="box">
+                                    <div class="box_title">学习内容</div>
+                                    <div class="box_content">
+                                        <ul>
+                                            <li><a href="{% url 'blog:django' %}">Djano</a></li>
+                                            <li><a href="{% url 'blog:bootstrap' %}">Bootstrap</a></li>
+                                            <li><a href="{% url 'blog:waiting2' %}">waiting</a></li>
+                                            <li><a href="{% url 'blog:waiting3' %}">waiting</a></li>
+                                            <li><a href="{% url 'blog:waiting4' %}">waiting</a></li>
+                                            {#                                            {{ recent_blogs.count }}#}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <div class="box_title">归档</div>
+                                    <div class="box_content">
+                                        <ul>
+                                            {% for date in all_dates %}
+                                                <li>
+                                                    <a href="{% url 'blog:archieve_blogs' date.year date.month %}">
+                                                        {{ date|date:"Y年m月" }}</a>&nbsp;&nbsp;
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                </div>
+
                             </div>
+                        </div>
                         <!--右边栏-->
 
                         <div class="clearer">&nbsp;</div>
