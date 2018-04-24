@@ -1,20 +1,26 @@
-{% extends 'index.html' %}
+{% extends 'django.html' %}
 {% load static from staticfiles %}
 {% block title %}{{ typename }}{% endblock %}
 {% block nav_django %}current_page_item{% endblock %}
 
-{% block sub %}
-    <div id="subnav">
-        <ul class="tabbed">
-            {% for category in all_categorys %}
-                <li class="current_page_item"><a
-                        href="{% url 'blog:category_blogs' category.pk %}">{{ category.type_name }}</a></li>
-            {% endfor %}
-        </ul>
-        <div class="clearer">&nbsp;</div>
-    </div>
-{% endblock %}
-
+{% block style %}
+        <style type="text/css">
+            p.if {
+                font-size: 20px;
+                font-family: '宋体';
+                /*align="center";*/
+            }            
+            span.blogtitle {
+                font-size: 20px;
+                /*font-family: '宋体';*/
+                /*align="center";*/
+            }
+            span.time{
+                float: right;
+            }
+           
+        </style>
+    {% endblock %}
 
 {% block left %}
     <div class="left" id="content_wrapper">
@@ -25,12 +31,14 @@
                     <span class="time">{{ blog.created_time|date:"Y-m-d" }}</span>
                     <br>
                 </div>
+
                 {% empty %}
-                无
+                <p class = 'if' align="center">---暂无博客---</p>
             {% endfor %}
         </div>
 
         <!--分页开始-->
+        {% if pageObj %}
         {#分页#}
         <div class="paginator">
             <ul class="pagination">
@@ -81,6 +89,7 @@
     <p>当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</p>
         {#分页结束#}
         <!--分页结束-->
+        {% endif %}
     </div>
 {% endblock %}
 

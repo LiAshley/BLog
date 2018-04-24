@@ -15,6 +15,9 @@
 
             float: right;
         }
+        span.type{
+            float: right;
+        }
     </style>
 
 {% endblock %}
@@ -36,7 +39,7 @@
     <div class="left" id="content_wrapper">
         <div id="content">
             <div class="post">
-                <div class="post_title"><span class="title">{{ obj.title }}</span>&nbsp;(分类:)</div>
+                <div class="post_title"><span class="title">{{ obj.title }}</span><span class="type">分类:{{ obj.blog_type}}</span></div>
                     <span class="a">
                         {% if blog_next %}
                             上一篇：<a href="{% url 'blog:blog_post' blog_next.pk %}">{{ blog_next.title }}</a>
@@ -52,8 +55,9 @@
                 <div class="post_date">{{ obj.created_time|date:'Y-m-d' }} from <a href="#">{{ obj.author }}</a></div>
 
                 <div class="post_body">
-                    <p>{{ obj.content }}</p>
-
+                    <div style="word-wrap: break-word">           
+                    <p>{{ obj.content|safe }}</p>
+                    </div>
                     <ul>
                         <li>List item 1</li>
                         <li>List item 2</li>

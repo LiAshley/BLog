@@ -7,7 +7,7 @@
     <div id="subnav">
         <ul class="tabbed">
             {% for category in all_categorys %}
-                <li class="current_page_item"><a
+                <li class="{% block django %}{% endblock%}"><a
                         href="{% url 'blog:category_blogs' category.pk %}">{{ category.type_name }}</a></li>
             {% endfor %}
         </ul>
