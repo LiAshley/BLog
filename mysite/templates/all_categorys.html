@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% load static from staticfiles %}
+{% block title %}所有类型{% endblock %}
+
+
+
+
+{% block left %}
+    <div class="left" id="content_wrapper">
+				<div id="content">
+				{% for category in all_categorys %}
+                <div>
+                    <a href="{% url 'blog:category_blogs' category.pk %}"><span class="blogtitle">{{ category.type_name }}</span></a>&nbsp;({{ category.blog_set.count }})
+                    <span class="time"></span>
+                    <br>
+                </div>
+            	{% endfor %}
+				</div>
+			</div>
+{% endblock %}
+
+

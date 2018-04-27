@@ -6,15 +6,26 @@ from django.utils import timezone
 # 富文本编辑引入包
 from ckeditor_uploader.fields import RichTextUploadingField
 # 类型表，因为外键的关系，类型表要在博客表之前创建
-class BlogType(models.Model):
+class BaseType(models.Model):
     type_name = models.CharField(max_length=50,verbose_name='类型名称')
 
     class Meta:
-        verbose_name = "类型表"
+        verbose_name = "博客大类型"
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.type_name
+class BlogType(models.Model):
+    type_name = models.CharField(max_length=50,verbose_name='类型名称')
+    base_type = models.ForeignKey(BaseType,null=True,on_delete = models.DO_NOTHING)
+
+    class Meta:
+        verbose_name = "博客细类型"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.type_name
+
 
 
 

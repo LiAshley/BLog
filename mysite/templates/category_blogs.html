@@ -1,4 +1,4 @@
-{% extends 'django.html' %}
+{% extends 'base_categorys.html' %}
 {% load static from staticfiles %}
 {% block title %}{{ typename }}{% endblock %}
 {% block nav_django %}current_page_item{% endblock %}
@@ -25,6 +25,7 @@
 {% block left %}
     <div class="left" id="content_wrapper">
         <div id="content">
+            <p style="text-align: center;">{{cateObj.type_name}}:</p>
             {% for blog in pageObj %}
                 <div>
                     <a href="{% url 'blog:blog_post' blog.pk %}"><span class="blogtitle">{{ blog.title }}</span></a>
@@ -36,6 +37,8 @@
                 <p class = 'if' align="center">---暂无博客---</p>
             {% endfor %}
         </div>
+  
+
 
         <!--分页开始-->
         {% if pageObj %}
@@ -86,7 +89,7 @@
 {#            <p>#}
 {#                当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</p>#}
         </div>
-    <p>当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</p>
+    <h4 style="text-align: center">当前第&nbsp;{{ pageObj.number }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.num_pages }}&nbsp;页，共有&nbsp;{{ pageObj.paginator.count }}&nbsp;篇博客</h4>
         {#分页结束#}
         <!--分页结束-->
         {% endif %}

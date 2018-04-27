@@ -45,20 +45,14 @@
                 <div id="navigation">
                     <div id="nav">
                         <ul class="tabbed">
-                            <li class="{% block nav_home %}{% endblock %}"><a href="{% url 'home' %}">首页</a></li>
-                            {#                            <li class="{% block nav_blog_post %}{% endblock %}"><a href="{% url 'blog_post' %}">Blog Post</a></li>#}
-                            <li class="{% block nav_blog_list %}{% endblock %}"><a href="{% url 'blog:blog_list' %}">所有博客</a>
+                            <li><a href="{% url 'home' %}">首页</a></li>
+                            <li> <a href="{% url 'blog:blog_list' %}">所有博客</a>
                             </li>
-                            <li class="{% block nav_django %}{% endblock %}"><a
-                                    href="{% url 'blog:django' %}">Django</a></li>
-                            <li class="{% block nav_bootstrap %}{% endblock %}"><a href="{% url 'blog:bootstrap' %}">Bootstrap</a>
-                            </li>
+                            {% for base in base_types %}
 
-                            <li class="{% block nav_waiting2 %}{% endblock %}"><a href="{% url 'blog:waiting2' %}">waiting2 </a>
-                            </li>
-                            <li class="{% block nav_waiting3 %}{% endblock %}"><a href="{% url 'blog:waiting3' %}">waiting3 </a>
-                            </li>
-                            <li><a href="{% url 'blog:waiting4' %}">waiting4 </a></li>
+                            <li><a href="{% url 'blog:base_categorys' base.pk %}">{{base.type_name}}</a></li>
+                            {% endfor %}
+                            <li><a href="{% url 'blog:all_categorys' %}">所有分类</a></li>
                         </ul>
                         <div class="clearer">&nbsp;</div>
                     </div>
@@ -66,10 +60,10 @@
                     {% block sub %}
                         <div id="subnav">
                             <ul class="tabbed">
-                                <li class="current_page_item"><a href="#">首页自子页面</a></li>
-                                <li><a href="#">首页自子页面</a></li>
-                                <li><a href="#">首页自子页面</a></li>
-                                <li><a href="#">首页自子页面</a></li>
+                                <li class="current_page_item"><a href="#">首页子页面</a></li>
+                                <li><a href="#">首页子页面</a></li>
+                                <li><a href="#">首页子页面</a></li>
+                                <li><a href="#">首页子页面</a></li>
                             </ul>
                             <div class="clearer">&nbsp;</div>
                         </div>
@@ -134,14 +128,11 @@
                                 <div class="box">
                                     <div class="box_title">学习内容</div>
                                     <div class="box_content">
+                                        {% for base in base_types%}         
                                         <ul>
-                                            <li><a href="{% url 'blog:django' %}">Djano</a></li>
-                                            <li><a href="{% url 'blog:bootstrap' %}">Bootstrap</a></li>
-                                            <li><a href="{% url 'blog:waiting2' %}">waiting</a></li>
-                                            <li><a href="{% url 'blog:waiting3' %}">waiting</a></li>
-                                            <li><a href="{% url 'blog:waiting4' %}">waiting</a></li>
-                                            {#                                            {{ recent_blogs.count }}#}
+                                            <li><a href="{% url 'blog:base_categorys' base.pk %}">{{ base.type_name}}</a></li>                          
                                         </ul>
+                                         {% endfor %}
                                     </div>
                                 </div>
                                 <div class="box">

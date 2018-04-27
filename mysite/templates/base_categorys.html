@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% load static from staticfiles %}
+{% block title %}{{base_type_name}}内容{% endblock %}
+{% block style %}
+        <style type="text/css">
+            span.blogtitle {
+                font-size: 20px;
+                #font-family: '宋体'
+            }
+            p.empty {
+                align-content: : center;
+            }
+
+        </style>
+{% endblock %}
+
+{% block sub %}
+    <div id="subnav">
+        <ul class="tabbed"> 
+            {% for cat in base_categorys %}
+            <li class="current_page_item"><a href="{% url 'blog:category_blogs' cat.pk %}">{{cat.type_name}}</a></li>
+            {% endfor %}
+        </ul>
+        <div class="clearer">&nbsp;</div>
+    </div>
+{% endblock %}
+
+
+{% block left %}
+    <div class="left" id="content_wrapper">
+        <div id="content">
+
+            {% for category in base_categorys %}
+                <div>
+                    <a href="{% url 'blog:category_blogs' category.pk %}"><span class="blogtitle">{{ category.type_name }}</span></a>&nbsp;({{ category.blog_set.count }})
+                    <span class="time"></span>
+                    <br>
+                </div>
+{%empty%}
+            <h3 style="text-align:center;">---暂无详细内容（子分类）---</h3>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+

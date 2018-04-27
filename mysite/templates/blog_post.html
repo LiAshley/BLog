@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% load static from staticfiles %}
 
-{% block title %}blog_post{% endblock %}
+{% block title %}{{ obj.title }}{% endblock %}
 
 {% block nav_blog_post %}current_page_item{% endblock %}
 

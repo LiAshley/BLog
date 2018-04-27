@@ -1,12 +1,17 @@
 from django.contrib import admin
-from .models import BlogType,Blog
+from .models import BlogType,Blog,BaseType
 # Register your models here.
 
 
-@admin.register(BlogType)
-class BlogTypeAdmin(admin.ModelAdmin):
+@admin.register(BaseType)
+class BaseTypeAdmin(admin.ModelAdmin):
     list_display = ['pk','type_name']
     list_editable=['type_name']
+
+@admin.register(BlogType)
+class BlogTypeAdmin(admin.ModelAdmin):
+    list_display = ['pk','type_name','base_type']
+    list_editable=['type_name','base_type']
 
 
 @admin.register(Blog)
